@@ -1,7 +1,5 @@
 fastapi
 uvicorn
-jinja2
-python-dotenv
-httpx
 sqlalchemy
-alembic
+httpx
+jinja2

